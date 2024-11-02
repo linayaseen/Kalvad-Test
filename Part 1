@@ -1,0 +1,20 @@
+# Total Revenue Calculation:
+            SELECT SUM(fare_amount) AS total_revenue
+            FROM yellow_taxi_trips
+            WHERE dropoff_datetime >= CURRENT_DATE - INTERVAL '30 days';
+
+
+# tTop 3 Pickup Locations:
+            SELECT pickup_location_id, SUM(fare_amount) AS total_revenue
+            FROM yellow_taxi_trips
+            WHERE dropoff_datetime >= CURRENT_DATE - INTERVAL '30 days'
+            GROUP BY pickup_location_id
+            ORDER BY total_revenue DESC
+            LIMIT 3;
+            
+# Frequent Riders:
+            SELECT passenger_id, COUNT(*) AS trip_count
+            FROM yellow_taxi_trips
+            WHERE dropoff_datetime >= CURRENT_DATE - INTERVAL '30 days'
+            GROUP BY passenger_id
+            HAVING COUNT(*) > 5;
